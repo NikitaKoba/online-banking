@@ -14,14 +14,14 @@ public class Payment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long clientid;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "senderid", referencedColumnName = "id")
+    @JoinColumn(name = "senderid", referencedColumnName = "clientid")
     private User senderId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "receiverid", referencedColumnName = "id")
+    @JoinColumn(name = "receiverid", referencedColumnName = "clientid")
     private User receiverId;
 
     @Column(name = "amount")

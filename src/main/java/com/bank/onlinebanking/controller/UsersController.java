@@ -1,21 +1,21 @@
 package com.bank.onlinebanking.controller;
 
+
+
+import com.bank.onlinebanking.dto.UserDto;
 import com.bank.onlinebanking.entity.User;
-import com.bank.onlinebanking.service.UserService;
+import com.bank.onlinebanking.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/")
 public class UsersController {
-   /* @Autowired
-    UserService userService;
-    @PostMapping("/users")
-    public User createUser(@RequestBody User user) throws Exception {
-        return userService.createUser(user);
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+
+    @PostMapping("/register/")
+    public User createUser(@RequestBody UserDto userDto){
+        return userServiceImpl.createUser(userDto);
     }
-    @PostMapping("/users/{id}")
-    public User getUserById(@PathVariable Long id){
-        return userService.getUserById(id);
-    }*/
 }

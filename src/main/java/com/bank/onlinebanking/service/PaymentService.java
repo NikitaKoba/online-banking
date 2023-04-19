@@ -1,4 +1,7 @@
 package com.bank.onlinebanking.service;
 
-public class PaymentService {
+
+import com.bank.onlinebanking.entity.User;
+
+public interface PaymentService {
 }
