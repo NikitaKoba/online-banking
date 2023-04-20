@@ -1,6 +1,5 @@
 package com.bank.onlinebanking.dto;
 
-import com.bank.onlinebanking.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -8,14 +7,16 @@ import lombok.NoArgsConstructor;
 
 
 import java.math.BigDecimal;
-import java.util.List;
+import java.util.Random;
 
 @Builder
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDto {
-    private Long clientid;
+    private static final long MAX_USER_ID = 1000000;
+    private Random random = new Random();
+    private long userid;
     private String firstname;
     private String lastname;
     private String surname;
@@ -25,5 +26,5 @@ public class UserDto {
     private String login;
     private String password;
 
-    }
+}
 

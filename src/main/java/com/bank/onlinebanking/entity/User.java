@@ -37,12 +37,7 @@ public class User {
     @Column
     private BigDecimal balance;
 
-    @JsonIgnore
-    @Column
-    private String login;
 
-    @JsonIgnore
-    @Column
-    private String password;
+
 
 }
