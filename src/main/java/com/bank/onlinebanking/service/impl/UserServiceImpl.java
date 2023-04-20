@@ -19,7 +19,6 @@ import java.util.Random;
 
 @Service
 public class UserServiceImpl implements UserService {
-    private static final long MAX_USER_ID = 1000000;
     @Autowired
     private UserRepository userRepository;
 
@@ -46,23 +45,21 @@ public class UserServiceImpl implements UserService {
         try {
 
 
-        if (authRepositroy.findAllByLogin(userDto.getLogin()) != null){
-            System.out.println("Login" +" "+ userDto.getLogin()+ " " + "is busy");
-        }
-        else if(userRepository.findAllByEmail(user.getEmail()) != null){
-            System.out.println("Email" + " " + user.getEmail() + " "+ "is busy");
-        }
-        else if(userRepository.findAllByPhoneNumber(userDto.getPhone()) != null){
-            System.out.println("Phone" + " " + userDto.getPhone() + " " + "is busy");
-        }
-        else {
-            userRepository.save(user);
-            auth.setLogin(userDto.getLogin());
-            auth.setPassword(userDto.getPassword());
-            user = userRepository.getByClientid(user.getClientid());
-            auth.setUserid(user);
-            authRepositroy.save(auth);
-        }} catch (Exception e) {
+            if (authRepositroy.findAllByLogin(userDto.getLogin()) != null) {
+                System.out.println("Login" + " " + userDto.getLogin() + " " + "is busy");
+            } else if (userRepository.findAllByEmail(user.getEmail()) != null) {
+                System.out.println("Email" + " " + user.getEmail() + " " + "is busy");
+            } else if (userRepository.findAllByPhoneNumber(userDto.getPhone()) != null) {
+                System.out.println("Phone" + " " + userDto.getPhone() + " " + "is busy");
+            } else {
+                userRepository.save(user);
+                auth.setLogin(userDto.getLogin());
+                auth.setPassword(userDto.getPassword());
+                user = userRepository.getByClientid(user.getClientid());
+                auth.setUserid(user);
+                authRepositroy.save(auth);
+            }
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return user;
@@ -71,33 +68,31 @@ public class UserServiceImpl implements UserService {
     @Override
     public Auth authUser(UserDto userDto) {
         Auth auth = authRepositroy.findAllByLoginAndPassword(userDto.getLogin(), userDto.getPassword());
-        User user = new User();
         auth.setLogin(userDto.getLogin());
         auth.setPassword(userDto.getPassword());
-        if(auth != null)
-        {
+        if (auth != null) {
             return auth;
+        } else {
+            throw new RuntimeException("User not found");
         }
-        else {
-            throw new RuntimeException("User not found");}
-        }
+    }
 
 
     @Override
     public Auth getUserIdByLogin(String login) {
         Auth auth = authRepositroy.findAllByLogin(login);
-        if(auth!= null) {
+        if (auth != null) {
             return auth;
+        } else {
+            throw new RuntimeException("User with login " + login + " not found");
         }
-        else { throw new RuntimeException("User with login " + login + " not found");
-    }
 
 
 
 
 
 
-    /*   *//*if (authRepositroy.findAllByLogin(userDto.getLogin()) != null || userRepository.findAllByEmail(userDto.getEmail()) != null || userRepository.findAllByPhoneNumber(userDto.getPhone()) != null) {
+        /*   *//*if (authRepositroy.findAllByLogin(userDto.getLogin()) != null || userRepository.findAllByEmail(userDto.getEmail()) != null || userRepository.findAllByPhoneNumber(userDto.getPhone()) != null) {
                 return null;
             }*//*
         } catch (Exception  e) {
@@ -110,7 +105,7 @@ public class UserServiceImpl implements UserService {
         auth.setPassword(userDto.getPassword());
         authRepositroy.save(auth);*/
 
-    /*return user;*/
+        /*return user;*/
 
 
 
@@ -141,4 +136,5 @@ public class UserServiceImpl implements UserService {
         authentication.setPassword(authenticationDto.getPassword());
         authenticationRepository.save(authentication);
     }*/
-}}
+    }
+}
